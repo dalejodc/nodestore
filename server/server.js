@@ -1,5 +1,8 @@
+require('./config/config');
+
 const express = require('express')
 const app = express()
+const bodyparser = require('body-parser')
 
 app.get('/user', (req, res) => {
     res.json('GET user')
@@ -20,6 +23,6 @@ app.delete('/user', (req, res) => {
     res.json('DELETE user')
 })
 
-app.listen(3000, () => {
-    console.log("Runnign in the port 3000");
+app.listen(PORT, () => {
+    console.log(`Runnign in the port ${PORT}`);
 })
