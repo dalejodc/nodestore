@@ -7,7 +7,7 @@ app.get('/user', (req, res) => {
     res.json('GET user')
 })
 
-app.post('/user', (req, res) => {
+app.post('/user', (req, res)=> {
     
     let body = req.body;
 
@@ -15,11 +15,23 @@ app.post('/user', (req, res) => {
         name:  body.name,
         email: body.email,
         password: body.password,
-        role: body.role,
-        status: true
+        role: body.role
     })
-
-    res.json('POST user')
+    
+    user.save( (err, userDB)=>{
+        
+        if(err){
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        
+        res.json({
+            ok: true,
+            user: userDB
+        });
+    })
 })
 
 app.put('/user/:id', (req, res) => {

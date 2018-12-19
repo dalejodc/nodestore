@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 let Schema = mongoose.Schema;
 
@@ -9,7 +10,8 @@ let userSchema = new Schema({
     },
     email: {
         type: String, 
-        required: [true, 'The email is required']
+        required: [true, 'The email is required'],
+        unique: true
     },
     password: {
         type: String, 
@@ -25,13 +27,15 @@ let userSchema = new Schema({
         default: 'USER_ROLE'
     },
     google:{
-        type: boolean,
+        type: Boolean,
         default:false
     },
     state:{
-        type: boolean,
+        type: Boolean,
         default: true
     }
 });
+
+userSchema.plugin(uniqueValidator, {message: 'we are sorry, that {PATH} is taken'});
 
 module.exports = mongoose.model('User', userSchema);
