@@ -25,10 +25,13 @@ let userSchema = new Schema({
         default: 'USER_ROLE'
     },
     google:{
-        type: boolean
+        type: boolean,
+        default:false
     },
     state:{
         type: boolean,
         default: true
     }
 });
+
+module.exports = mongoose.model('User', userSchema);
