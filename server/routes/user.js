@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const bcrypt = require('bcrypt');
 
 const User = require('../models/user')
 
@@ -14,7 +15,7 @@ app.post('/user', (req, res)=> {
     let user = new User({
         name:  body.name,
         email: body.email,
-        password: body.password,
+        password: bcrypt.hashSync(body.password,10),
         role: body.role
     })
     
@@ -37,8 +38,24 @@ app.post('/user', (req, res)=> {
 app.put('/user/:id', (req, res) => {
 
     let id = req.params.id;
+    let body = req.body;
 
-    res.json({id})
+    User.findByIdAndUpdate(id, body, {new: true, runValidators: true}, (err, user)=>{
+
+        if(err){
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+
+        res.json({
+            ok: true,
+            user: user
+        });
+
+    });
+
 })
 
 app.delete('/user', (req, res) => {
