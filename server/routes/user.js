@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt');
+const _ = require('underscore');
 
 const User = require('../models/user')
 
@@ -38,7 +39,7 @@ app.post('/user', (req, res)=> {
 app.put('/user/:id', (req, res) => {
 
     let id = req.params.id;
-    let body = req.body;
+    let body =_.pick(req.body, ['name','email', 'image', 'role', 'status']); //To select just the properties to update
 
     User.findByIdAndUpdate(id, body, {new: true, runValidators: true}, (err, user)=>{
 
