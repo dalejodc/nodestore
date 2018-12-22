@@ -5,9 +5,17 @@ const _ = require('underscore');
 
 const User = require('../models/user')
 
-app.get('/user', (req, res) => {
+app.get('/users', (req, res) => {
+    
+    let from = req.query.from || 0;
+    from = Number(from);
+    
+    let to = req.query.to || 5;
+    to = Number(to);
+    
     User.find({})
-        .limit(5)
+        .skip(from)
+        .limit(to)
         .exec((err, users)=>{
         if(err){
             return res.status(400).json({
