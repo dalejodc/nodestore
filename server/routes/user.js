@@ -13,7 +13,7 @@ app.get('/users', (req, res) => {
     let to = req.query.to || 5;
     to = Number(to);
 
-    User.find({})
+    User.find({}, 'name email')
         .skip(from)
         .limit(to)
         .exec((err, users) => {
@@ -28,7 +28,7 @@ app.get('/users', (req, res) => {
             User.count({}, (err, count) => {
                 res.json({
                     ok: true,
-                    count: count,
+                    //count: count,
                     users: users
                 });
             })
