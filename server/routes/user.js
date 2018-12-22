@@ -6,7 +6,21 @@ const _ = require('underscore');
 const User = require('../models/user')
 
 app.get('/user', (req, res) => {
-    res.json('GET user')
+    User.find({})
+        .limit(5)
+        .exec((err, users)=>{
+        if(err){
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+        
+        res.json({
+            ok: true,
+            users: users
+        });
+    });
 })
 
 app.post('/user', (req, res)=> {
