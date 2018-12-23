@@ -85,8 +85,24 @@ app.put('/user/:id', (req, res) => {
 
 })
 
-app.delete('/user', (req, res) => {
-    res.json('DELETE user')
+//To delete the user
+app.delete('/user/:id', (req, res) => {
+    
+    let id = req.params.id;
+
+    User.findByIdAndRemove(id, (err, del)=>{
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+
+        res.json({
+            ok: true,
+            user: del
+        })
+    });
 })
 
 module.exports = app;
