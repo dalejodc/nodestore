@@ -36,6 +36,7 @@ app.get('/users', (req, res) => {
         });
 })
 
+//Method to save an user
 app.post('/user', (req, res) => {
 
     let body = req.body;
@@ -63,6 +64,7 @@ app.post('/user', (req, res) => {
     })
 })
 
+//Method to update an user
 app.put('/user/:id', (req, res) => {
 
     let id = req.params.id;
@@ -113,7 +115,7 @@ app.delete('/user/:id', (req, res) => {
     });
 })
 
-//To disable the user //#endregion
+//To disable the user changing the state to false
 app.post('/user/disable/:id', (req, res)=>{
 
     let id = req.params.id;
