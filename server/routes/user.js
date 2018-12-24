@@ -98,6 +98,13 @@ app.delete('/user/:id', (req, res) => {
             });
         }
 
+        if(!del){
+            return res.status(400).json({
+                ok: false,
+                err: "User doesn't exist"
+            })
+        }
+
         res.json({
             ok: true,
             user: del
