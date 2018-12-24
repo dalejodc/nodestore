@@ -10,10 +10,10 @@ app.get('/users', (req, res) => {
     let from = req.query.from || 0;
     from = Number(from);
 
-    let to = req.query.to || 5;
+    let to = req.query.to || 20;
     to = Number(to);
 
-    User.find({}, 'name email')
+    User.find({}, 'name email state')
         .skip(from)
         .limit(to)
         .exec((err, users) => {
@@ -111,5 +111,31 @@ app.delete('/user/:id', (req, res) => {
         })
     });
 })
+
+//To disable the user //#endregion
+app.post('/user/disable/:id', (req, res)=>{
+
+    let id = req.params.id;
+
+    let changeStatus = {
+        state: false
+    };
+    
+    User.findByIdAndUpdate(id, changeStatus, (err, disabled) =>{
+       
+        if(err){
+            return res.status(400).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        res.json({
+            ok: true,
+            user: disabled
+        });
+
+    });
+});
 
 module.exports = app;
