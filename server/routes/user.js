@@ -5,6 +5,7 @@ const _ = require('underscore');
 
 const User = require('../models/user')
 
+// Method to get all the enable users
 app.get('/users', (req, res) => {
 
     let from = req.query.from || 0;
@@ -13,7 +14,7 @@ app.get('/users', (req, res) => {
     let to = req.query.to || 20;
     to = Number(to);
 
-    User.find({}, 'name email state')
+    User.find({state: true}, 'name email state')
         .skip(from)
         .limit(to)
         .exec((err, users) => {
