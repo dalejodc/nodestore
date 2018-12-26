@@ -141,4 +141,35 @@ app.post('/user/disable/:id', (req, res)=>{
     });
 });
 
+// Method to get all the enable users
+app.get('/users/disables', (req, res) => {
+
+    let from = req.query.from || 0;
+    from = Number(from);
+
+    let to = req.query.to || 20;
+    to = Number(to);
+
+    User.find({state: false}, 'name email state')
+        .skip(from)
+        .limit(to)
+        .exec((err, users) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+            User.count({}, (err, count) => {
+                res.json({
+                    ok: true,
+                    //count: count,
+                    users: users
+                });
+            })
+        });
+})
+
 module.exports = app;
