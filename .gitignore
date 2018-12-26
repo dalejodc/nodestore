@@ -1,3 +1,5 @@
+server/config/enviroment.js
+
 # Logs
 logs
 *.log
