@@ -34,7 +34,11 @@ app.post('/login', (req, res) => {
             });
         }
 
-        
+        res.json({
+            ok: true,
+            user: userDB,
+            token: '123'
+        })
     });
 });
 
