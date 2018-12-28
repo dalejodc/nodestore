@@ -5,7 +5,7 @@ const _ = require('underscore');
 
 const User = require('../models/user')
 
-// Method to get all the enable users
+// Method to get all the enabled users
 app.get('/users', (req, res) => {
 
     let from = req.query.from || 0;
@@ -141,7 +141,7 @@ app.post('/user/disable/:id', (req, res)=>{
     });
 });
 
-// Method to get all the enable users
+// Method to get all the disables users
 app.get('/users/disables', (req, res) => {
 
     let from = req.query.from || 0;
