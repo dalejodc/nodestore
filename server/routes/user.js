@@ -90,7 +90,7 @@ app.put('/user/:id', checkToken, (req, res) => {
 })
 
 //To delete the user
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/:id', checkToken, (req, res) => {
     
     let id = req.params.id;
 
