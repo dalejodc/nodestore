@@ -66,7 +66,7 @@ app.post('/user', checkToken, (req, res) => {
 })
 
 //Method to update an user
-app.put('/user/:id', (req, res) => {
+app.put('/user/:id', checkToken, (req, res) => {
 
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'email', 'image', 'role', 'status']); //To select just the properties to update
