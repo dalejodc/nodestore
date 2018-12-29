@@ -143,7 +143,7 @@ app.put('/user/disable/:id', checkToken, (req, res)=>{
 });
 
 // Method to get all the disables users
-app.get('/users/disables', (req, res) => {
+app.get('/users/disables', checkToken, (req, res) => {
 
     let from = req.query.from || 0;
     from = Number(from);
