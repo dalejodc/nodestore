@@ -71,7 +71,7 @@ app.put('/user/:id', checkToken, (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'email', 'image', 'role', 'status']); //To select just the properties to update
 
-    User.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, user) => {
+    User.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' }, (err, user) => {
 
         if (err) {
             return res.status(400).json({
