@@ -38,7 +38,7 @@ app.get('/users', checkToken, (req, res) => {
 })
 
 //Method to save an user
-app.post('/user', (req, res) => {
+app.post('/user', checkToken, (req, res) => {
 
     let body = req.body;
 
