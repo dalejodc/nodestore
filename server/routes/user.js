@@ -4,9 +4,10 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 const User = require('../models/user')
+const checkToken = require('../middlewares/authentication').checkToken;
 
 // Method to get all the enabled users
-app.get('/users', (req, res) => {
+app.get('/users', checkToken, (req, res) => {
 
     let from = req.query.from || 0;
     from = Number(from);
