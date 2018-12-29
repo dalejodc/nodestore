@@ -117,7 +117,7 @@ app.delete('/user/:id', checkToken, (req, res) => {
 })
 
 //To disable the user changing the state to false
-app.post('/user/disable/:id', (req, res)=>{
+app.put('/user/disable/:id', checkToken, (req, res)=>{
 
     let id = req.params.id;
 
@@ -136,7 +136,7 @@ app.post('/user/disable/:id', (req, res)=>{
 
         res.json({
             ok: true,
-            user: disabled
+            user: `The user ${disabled.name} is now disabled`
         });
 
     });
