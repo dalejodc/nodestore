@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
 
         let token = jwt.sign({
             user: userDB
-        }, 'secret',{expiresIn: '1h'})
+        }, 'secret',{expiresIn: process.env.TOKEN_EXPIRES_IN})
 
         res.json({
             ok: true,
