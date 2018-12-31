@@ -19,6 +19,23 @@ let checkToken = (req, res, next)=>{
     });
 }
 
+//Middleware to check the ROLE
+let checkRole = (req, res, next)=>{
+    
+    let user = req.user;
+    
+    if(user.ROLE === 'ADMIN_ROLE'){
+        next();
+    }else{
+        return res.json({
+            ok: false,
+            err:{
+                message: 'You are not allowed to do the action. Contact an Admin.'
+            }
+        })
+    }
+}
+
 module.exports = {
     checkToken
 }
