@@ -37,5 +37,6 @@ let checkRole = (req, res, next)=>{
 }
 
 module.exports = {
-    checkToken
+    checkToken,
+    checkRole
 }
