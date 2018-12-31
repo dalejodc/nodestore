@@ -5,6 +5,7 @@ const _ = require('underscore');
 
 const User = require('../models/user')
 const checkToken = require('../middlewares/authentication').checkToken;
+const checkRole = require('../middlewares/authentication').checkRole;
 
 // Method to get all the enabled users
 app.get('/users', checkToken, (req, res) => {
@@ -38,7 +39,7 @@ app.get('/users', checkToken, (req, res) => {
 })
 
 //Method to save an user
-app.post('/user', checkToken, (req, res) => {
+app.post('/user', [checkToken, checkRole], (req, res) => {
 
     let body = req.body;
 
@@ -90,7 +91,7 @@ app.put('/user/:id', checkToken, (req, res) => {
 })
 
 //To delete the user
-app.delete('/user/:id', checkToken, (req, res) => {
+app.delete('/user/:id', [checkToken, checkRole], (req, res) => {
     
     let id = req.params.id;
 
