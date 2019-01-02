@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+// Method to login and return the token
 app.post('/login', (req, res) => {
 
     let body = req.body;
