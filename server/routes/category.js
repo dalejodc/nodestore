@@ -4,6 +4,7 @@ const app = express()
 
 const Category = require('../models/category')
 
+//Method to create a category
 app.post('/category', checkToken, (req, res)=>{
     let body = req.body;
     
