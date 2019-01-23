@@ -161,4 +161,32 @@ app.put('/category/enable/:id', checkToken, (req, res) => {
 
 })
 
+//Method to delete the category
+app.delete('/category/:id', [checkToken], (req, res) => {
+    
+    let id = req.params.id;
+
+    Category.findByIdAndRemove(id, (err, del)=>{
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+
+        if(!del){
+            return res.status(400).json({
+                ok: false,
+                err: "User doesn't exist"
+            })
+        }
+
+        res.json({
+            ok: true,
+            message: "Category deleted"
+        })
+    });
+})
+
+
 module.exports = app;
