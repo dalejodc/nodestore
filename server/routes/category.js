@@ -7,7 +7,7 @@ const Category = require('../models/category')
 // Method to get all the enabled categories
 app.get('/categories', checkToken, (req, res) => {
 
-    Category.find({})
+    Category.find({state: true})
         .exec((err, categoriesDB) => {
 
             if (err) {
