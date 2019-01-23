@@ -4,33 +4,55 @@ const app = express()
 
 const Category = require('../models/category')
 
+// Method to get all the enabled categories
+app.get('/categories', checkToken, (req, res) => {
+
+    Category.find({})
+        .exec((err, categoriesDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+
+            res.json({
+                ok: true,
+                categories: categoriesDB
+            });
+
+        });
+})
+
 //Method to create a category
-app.post('/category', checkToken, (req, res)=>{
+app.post('/category', checkToken, (req, res) => {
     let body = req.body;
-    
+
     let category = new Category({
         description: body.description,
         user: req.user._id
     })
 
-    category.save((err, categoryDB)=>{
-        
-        if(err){
+    category.save((err, categoryDB) => {
+
+        if (err) {
             return res.status(500).json({
-                ok:false,
+                ok: false,
                 err: err
             })
         }
 
-        if(!categoryDB){
+        if (!categoryDB) {
             return res.status(400).json({
-                ok:false,
+                ok: false,
                 err: err
             })
         }
 
         res.json({
-            ok:true,
+            ok: true,
             category: categoryDB
         })
     })
@@ -48,22 +70,22 @@ app.put('/category/:id', checkToken, (req, res) => {
 
     Category.findByIdAndUpdate(id, category, { new: true, runValidators: true }, (err, categoryDB) => {
 
-        if(err){
+        if (err) {
             return res.status(500).json({
-                ok:false,
+                ok: false,
                 err: err
             })
         }
 
-        if(!categoryDB){
+        if (!categoryDB) {
             return res.status(400).json({
-                ok:false,
+                ok: false,
                 err: err
             })
         }
 
         res.json({
-            ok:true,
+            ok: true,
             category: categoryDB
         })
 
