@@ -93,14 +93,47 @@ app.put('/category/:id', checkToken, (req, res) => {
 
 })
 
-//Method to disable a category
+//Method to disable a category by id
 app.put('/category/disable/:id', checkToken, (req, res) => {
 
     let id = req.params.id;
-    let body = req.body
 
     let category = {
         state: false
+    };
+
+    Category.findByIdAndUpdate(id, category, { new: true, runValidators: true }, (err, categoryDB) => {
+
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        if (!categoryDB) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        res.json({
+            ok: true,
+            category: categoryDB
+        })
+
+    });
+
+})
+
+//Method to enable a category by id
+app.put('/category/enable/:id', checkToken, (req, res) => {
+
+    let id = req.params.id;
+
+    let category = {
+        state: true
     };
 
     Category.findByIdAndUpdate(id, category, { new: true, runValidators: true }, (err, categoryDB) => {
