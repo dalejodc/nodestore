@@ -26,6 +26,28 @@ app.get('/categories', checkToken, (req, res) => {
         });
 })
 
+// Method to get all the disabled categories
+app.get('/categories/disabled', checkToken, (req, res) => {
+
+    Category.find({state: false}, 'id description')
+        .exec((err, categoriesDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+
+            res.json({
+                ok: true,
+                categories: categoriesDB
+            });
+
+        });
+})
+
 //Method to create a category
 app.post('/category', checkToken, (req, res) => {
     let body = req.body;
@@ -120,7 +142,8 @@ app.put('/category/disable/:id', checkToken, (req, res) => {
 
         res.json({
             ok: true,
-            category: categoryDB
+            category: categoryDB,
+            message: `${categoryDB.description} disabled`
         })
 
     });
