@@ -8,6 +8,7 @@ const Category = require('../models/category')
 app.get('/categories', checkToken, (req, res) => {
 
     Category.find({state: true}, 'id description')
+        .populate('user', 'name email') //To reference documents in other collections.
         .exec((err, categoriesDB) => {
 
             if (err) {
@@ -66,6 +67,7 @@ app.post('/category', checkToken, (req, res) => {
             })
         }
 
+        //Not needed
         if (!categoryDB) {
             return res.status(400).json({
                 ok: false,
