@@ -28,6 +28,10 @@ var productSchema = new Schema({
     usuario: { 
         type: Schema.Types.ObjectId, 
         ref: 'User' 
+    },
+    state: {
+        type: Boolean,
+        default: true
     }
 });
 
