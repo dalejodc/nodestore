@@ -8,6 +8,7 @@ const Category = require('../models/category')
 app.get('/categories', checkToken, (req, res) => {
 
     Category.find({state: true}, 'id description')
+        .sort('description')
         .populate('user', 'name email') //To reference documents in other collections.
         .exec((err, categoriesDB) => {
 
