@@ -20,7 +20,7 @@ var productSchema = new Schema({
         ref: 'Category', 
         required: true 
     },
-    usuario: { 
+    user: { 
         type: Schema.Types.ObjectId, 
         ref: 'User' 
     },
