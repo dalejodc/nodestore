@@ -54,8 +54,26 @@ app.get('/products/:id', (req, res) => {
 
 })
 
-app.get('/products/disabled', (req, res) => {
+app.get('/products-disabled', (req, res) => {
+    
+    Product.find({ state: false}, 'name description unitPrice')
+    .sort('name')
+    .populate('category', 'name') //To reference documents in other collections.
+    .exec((err, productsDB) => {
 
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+
+        res.json({
+            ok: true,
+            products: productsDB
+        });
+
+    });
 })
 
 //Method to save a product
