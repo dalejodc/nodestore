@@ -3,12 +3,13 @@ const checkToken = require('../middlewares/authentication').checkToken
 const app = express()
 
 const Product = require('../models/product')
+const Category = require('../models/category')
 
 app.get('/products/all', (req, res) => {
     
     Product.find({ state: true }, 'name description unitPrice')
         .sort('name')
-        .populate('category', 'description') //To reference documents in other collections.
+        .populate('category', 'name') //To reference documents in other collections.
         .exec((err, productsDB) => {
 
             if (err) {
@@ -27,7 +28,29 @@ app.get('/products/all', (req, res) => {
         });
 })
 
-app.get('/products/category', (req, res) => {
+app.get('/products/:id', (req, res) => {
+
+    let id = req.params.id;
+
+    Product.find({ state: true, category: id }, 'name description unitPrice')
+        .sort('name')
+        .populate('category', 'name') //To reference documents in other collections.
+        .exec((err, productsDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+
+            res.json({
+                ok: true,
+                products: productsDB
+            });
+
+        });
 
 })
 
