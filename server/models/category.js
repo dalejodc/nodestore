@@ -2,11 +2,17 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 let categorySchema = new Schema({
-    description: {
+    name: {
         type: String,
         unique: true,
         required: [
-            true, 'La descripción es obligatoria'
+            true, 'The name is required'
+        ]
+    },
+    description: {
+        type: String,
+        required: [
+            true, 'The description is required'
         ]
     },
     state: {
