@@ -15,11 +15,6 @@ var productSchema = new Schema({
         type: String, 
         required: false 
     },
-    isAvailable: { 
-        type: Boolean, 
-        required: true, 
-        default: true 
-    },
     category: { 
         type: Schema.Types.ObjectId, 
         ref: 'Category', 
@@ -31,6 +26,7 @@ var productSchema = new Schema({
     },
     state: {
         type: Boolean,
+        required: true,
         default: true
     }
 });
