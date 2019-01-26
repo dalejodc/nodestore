@@ -7,7 +7,7 @@ const Category = require('../models/category')
 // Method to get all the enabled categories
 app.get('/categories', checkToken, (req, res) => {
 
-    Category.find({state: true}, 'id description')
+    Category.find({state: true}, 'id name')
         .sort('description')
         .populate('user', 'name email') //To reference documents in other collections.
         .exec((err, categoriesDB) => {
@@ -31,7 +31,7 @@ app.get('/categories', checkToken, (req, res) => {
 // Method to get all the disabled categories
 app.get('/categories/disabled', checkToken, (req, res) => {
 
-    Category.find({state: false}, 'id description')
+    Category.find({state: false}, 'id name')
         .exec((err, categoriesDB) => {
 
             if (err) {
