@@ -6,7 +6,7 @@ const Product = require('../models/product')
 const Category = require('../models/category')
 
 app.get('/products/all', (req, res) => {
-    
+
     Product.find({ state: true }, 'name description unitPrice')
         .sort('name')
         .populate('category', 'name') //To reference documents in other collections.
@@ -55,25 +55,25 @@ app.get('/products/:id', (req, res) => {
 })
 
 app.get('/products-disabled', (req, res) => {
-    
-    Product.find({ state: false}, 'name description unitPrice')
-    .sort('name')
-    .populate('category', 'name') //To reference documents in other collections.
-    .exec((err, productsDB) => {
 
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err: err
+    Product.find({ state: false }, 'name description unitPrice')
+        .sort('name')
+        .populate('category', 'name') //To reference documents in other collections.
+        .exec((err, productsDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+            res.json({
+                ok: true,
+                products: productsDB
             });
-        }
 
-        res.json({
-            ok: true,
-            products: productsDB
         });
-
-    });
 })
 
 //Method to save a product
@@ -117,10 +117,33 @@ app.put('/product/disable/:id', (req, res) => {
 
 });
 
-app.delete('/product/:id', (req, res) => {
+//Method to delete a product
+app.delete('/product/:id', [checkToken], (req, res) => {
 
+    let id = req.params.id;
 
-});
+    Product.findByIdAndRemove(id, (err, del) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            });
+        }
+
+        if (!del) {
+            return res.status(400).json({
+                ok: false,
+                err: "The product doesn't exist"
+            })
+        }
+
+        res.json({
+            ok: true,
+            message: "Product deleted"
+        })
+    });
+})
+
 
 
 
