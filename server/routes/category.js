@@ -55,6 +55,7 @@ app.post('/category', checkToken, (req, res) => {
     let body = req.body;
 
     let category = new Category({
+        name: body.name,
         description: body.description,
         user: req.user._id
     })
