@@ -127,13 +127,6 @@ app.put('/product/:id', (req, res) => {
             })
         }
 
-        if (!productDB) {
-            return res.status(400).json({
-                ok: false,
-                err: err
-            })
-        }
-
         res.json({
             ok: true,
             product: productDB
@@ -169,13 +162,6 @@ app.delete('/product/:id', [checkToken], (req, res) => {
                 ok: false,
                 err: err
             });
-        }
-
-        if (!del) {
-            return res.status(400).json({
-                ok: false,
-                err: "The product doesn't exist"
-            })
         }
 
         res.json({
