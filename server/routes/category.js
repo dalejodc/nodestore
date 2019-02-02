@@ -19,7 +19,6 @@ app.get('/categories', checkToken, (req, res) => {
                 });
             }
 
-
             res.json({
                 ok: true,
                 categories: categoriesDB
@@ -40,7 +39,6 @@ app.get('/categories/disabled', checkToken, (req, res) => {
                     err: err
                 });
             }
-
 
             res.json({
                 ok: true,
@@ -103,13 +101,6 @@ app.put('/category/:id', checkToken, (req, res) => {
             })
         }
 
-        if (!categoryDB) {
-            return res.status(400).json({
-                ok: false,
-                err: err
-            })
-        }
-
         res.json({
             ok: true,
             category: categoryDB
@@ -132,13 +123,6 @@ app.put('/category/disable/:id', checkToken, (req, res) => {
 
         if (err) {
             return res.status(500).json({
-                ok: false,
-                err: err
-            })
-        }
-
-        if (!categoryDB) {
-            return res.status(400).json({
                 ok: false,
                 err: err
             })
@@ -172,13 +156,6 @@ app.put('/category/enable/:id', checkToken, (req, res) => {
             })
         }
 
-        if (!categoryDB) {
-            return res.status(400).json({
-                ok: false,
-                err: err
-            })
-        }
-
         res.json({
             ok: true,
             category: categoryDB
@@ -199,13 +176,6 @@ app.delete('/category/:id', [checkToken], (req, res) => {
                 ok: false,
                 err: err
             });
-        }
-
-        if(!del){
-            return res.status(400).json({
-                ok: false,
-                err: "User doesn't exist"
-            })
         }
 
         res.json({
