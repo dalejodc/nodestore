@@ -152,25 +152,7 @@ app.put('/product/disable/:id', (req, res) => {
 
     Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
 
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err: err
-            })
-        }
-
-        if (!productDB) {
-            return res.status(400).json({
-                ok: false,
-                err: err
-            })
-        }
-
-        res.json({
-            ok: true,
-            product: productDB,
-            message: `${productDB.name} disabled`
-        })
+        err ? res.status(400).json({ ok: false, err }) : res.json({ ok: true, product: productDB, message: `${productDB.name} disabled` });      
 
     });
 
