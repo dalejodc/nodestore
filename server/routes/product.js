@@ -113,7 +113,35 @@ app.put('/product/:id', (req, res) => {
 });
 
 app.put('/product/disable/:id', (req, res) => {
+    let id = req.params.id;
 
+    let product = {
+        state: false
+    };
+
+    Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
+
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        if (!productDB) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        res.json({
+            ok: true,
+            product: productDB,
+            message: `${productDB.name} disabled`
+        })
+
+    });
 
 });
 
