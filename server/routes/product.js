@@ -108,7 +108,38 @@ app.post('/product', checkToken, (req, res) => {
 })
 
 app.put('/product/:id', (req, res) => {
+    let id = req.params.id;
+    let body = req.body
 
+    let product = new Product({
+        name: body.name,
+        unitPrice: body.unitPrice,
+        description: body.description,
+        category: body.category
+    })
+
+    Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
+
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        if (!productDB) {
+            return res.status(400).json({
+                ok: false,
+                err: err
+            })
+        }
+
+        res.json({
+            ok: true,
+            product: productDB
+        })
+
+    });
 
 });
 
