@@ -122,8 +122,6 @@ app.put('/product/:id', checkToken, (req, res) => {
         state: body.state
     }
 
-    console.log(product);
-
     Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
 
         if (err) {
@@ -142,6 +140,7 @@ app.put('/product/:id', checkToken, (req, res) => {
 
 });
 
+//Methot to disable a product by ID
 app.put('/product/disable/:id', (req, res) => {
     let id = req.params.id;
 
