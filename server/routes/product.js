@@ -28,7 +28,8 @@ app.get('/products/all', (req, res) => {
         });
 })
 
-app.get('/products/:id', (req, res) => {
+//Method to get a product by ID
+app.get('/product/:id', (req, res) => {
 
     let id = req.params.id;
 
