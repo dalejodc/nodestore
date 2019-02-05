@@ -58,7 +58,7 @@ app.get('/product/:id', (req, res) => {
 //Method to get al the disabled products
 app.get('/products-disabled', (req, res) => {
 
-    Product.find({ state: false }, 'name description unitPrice')
+    Product.find({ state: false }, 'name description unitPrice state')
         .sort('name')
         .populate('category', 'name') //To reference documents in other collections.
         .exec((err, productsDB) => {
