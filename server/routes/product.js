@@ -32,7 +32,7 @@ app.get('/products/:id', (req, res) => {
 
     let id = req.params.id;
 
-    Product.find({ state: true, category: id }, 'name description unitPrice')
+    Product.find({ state: true, _id: id }, 'name description unitPrice')
         .sort('name')
         .populate('category', 'name') //To reference documents in other collections.
         .exec((err, productsDB) => {
