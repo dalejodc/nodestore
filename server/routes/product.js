@@ -109,16 +109,20 @@ app.post('/product', checkToken, (req, res) => {
 
 })
 
-app.put('/product/:id', (req, res) => {
+//Method to update a product by ID
+app.put('/product/:id', checkToken, (req, res) => {
     let id = req.params.id;
     let body = req.body
 
-    let product = new Product({
+    let product = {
         name: body.name,
         unitPrice: body.unitPrice,
         description: body.description,
-        category: body.category
-    })
+        category: body.category,
+        state: body.state
+    }
+
+    console.log(product);
 
     Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
 
