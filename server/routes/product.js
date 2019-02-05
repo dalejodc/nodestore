@@ -140,7 +140,7 @@ app.put('/product/:id', checkToken, (req, res) => {
 
 });
 
-//Methot to disable a product by ID
+//Method to disable a product by ID
 app.put('/product/disable/:id', (req, res) => {
     let id = req.params.id;
 
@@ -151,6 +151,32 @@ app.put('/product/disable/:id', (req, res) => {
     Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
 
         err ? res.status(400).json({ ok: false, err }) : res.json({ ok: true, product: productDB, message: `${productDB.name} disabled` });      
+
+    });
+
+});
+
+//Method to enable a product by ID
+app.put('/product/enable/:id', (req, res) => {
+    let id = req.params.id;
+
+    let product = {
+        state: true
+    };
+
+    Product.findByIdAndUpdate(id, product, { new: true, runValidators: true }, (err, productDB) => {
+
+        if(err){
+            res.status(400).json({ 
+                ok: false, 
+                err 
+            })
+        }
+        
+        res.json({ 
+            ok: true, product: productDB, 
+            message: `${productDB.name} enabled` 
+        });      
 
     });
 
