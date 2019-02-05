@@ -55,6 +55,7 @@ app.get('/product/:id', (req, res) => {
 
 })
 
+//Method to get al the disabled products
 app.get('/products-disabled', (req, res) => {
 
     Product.find({ state: false }, 'name description unitPrice')
