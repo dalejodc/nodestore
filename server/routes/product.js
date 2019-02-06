@@ -202,6 +202,32 @@ app.delete('/product/:id', [checkToken], (req, res) => {
     });
 })
 
+//Method to find products
+app.get('/product/find/:product', (req, res)=>{
+
+    let product = req.params.product;
+
+    let regex = new RegExp(product,'i') //'i' Not sensible to mayus and minus 
+
+    Product.find({name: regex})
+    .populate('category', 'name')
+    .exec((err, products)=>{
+       
+        if(err){
+            res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+
+        res.json({
+            ok: true,
+            products: products
+        })
+    })
+
+})
+
 
 
 
