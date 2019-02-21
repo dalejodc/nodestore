@@ -13,5 +13,9 @@ var menuSchema = new Schema({
     icon:{
         type: String,
         required: false
+    },
+    isAssignabke:{
+        type: boolean,
+        required: true
     }
 })
