@@ -6,6 +6,10 @@ var menuSchema = new Schema({
         type: String,
         required: true
     },
+    description:{
+        type: String,
+        required: true
+    },
     url:{
         type: String,
         required: true
@@ -14,8 +18,10 @@ var menuSchema = new Schema({
         type: String,
         required: false
     },
-    isAssignabke:{
-        type: boolean,
+    isAssignable:{
+        type: Boolean,
         required: true
     }
 })
+
+module.exports = mongoose.model('Menu', menuSchema);

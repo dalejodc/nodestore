@@ -9,14 +9,15 @@ app.post('/menu', checkToken, (req, res) => {
 
     let body = req.body;
 
-    let menu = new Menu({
+    let men = new Menu({
         name: body.name,
+        description: body.description,
         url: body.url,
         icon: body.icon,
         isAssignable: body.isAssignable
     })
 
-    menu.save((err, menuDB) => {
+    men.save((err, menuDB) => {
 
         if (err) {
             return res.status(500).json({
@@ -32,3 +33,5 @@ app.post('/menu', checkToken, (req, res) => {
     })
 
 })
+
+module.exports = app;
