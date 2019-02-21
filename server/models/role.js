@@ -10,6 +10,11 @@ var roleSchema = new Schema({
         type: String, 
         required: false 
     },
+    menus:{
+        type: [Schema.Types.ObjectId], 
+        ref: 'Menu', 
+        required: true 
+    },
     state: {
         type: Boolean,
         required: true,
