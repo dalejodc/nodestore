@@ -33,4 +33,26 @@ app.post('/role', checkToken, (req, res) => {
 
 })
 
+// Method to get all the enabled roles
+app.get('/roles', checkToken, (req, res) => {
+
+    Role.find({state: true}, "name menus")
+        .sort('name')
+        .exec((err, rolesDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+            res.json({
+                ok: true,
+                roles: rolesDB
+            });
+
+        });
+})
+
 module.exports = app;
