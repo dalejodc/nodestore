@@ -31,7 +31,30 @@ app.post('/menu', checkToken, (req, res) => {
             menu: menuDB
         })
     })
-
 })
+
+
+// Method to get all the enabled menus
+app.get('/menus', checkToken, (req, res) => {
+
+    Menu.find()
+        .sort('name')
+        .exec((err, menusDB) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+            res.json({
+                ok: true,
+                menus: menusDB
+            });
+
+        });
+})
+
 
 module.exports = app;
