@@ -1,0 +1,2 @@
+process.env.NODE_ENV='dev' 
+process.env.MONGO_URI='url_to_cloud_db'
