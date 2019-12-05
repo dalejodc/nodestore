@@ -1,5 +1,5 @@
+require('./config/environment');
 require('./config/config');
-require('./config/enviroment');
 
 const mongoose = require('mongoose');
 const express = require('express')
@@ -16,12 +16,12 @@ app.use(bodyParser.json())
 //Global config of routes
 app.use(require('./routes/routes'));
 
-mongoose.connect(process.env.DBURL, { useNewUrlParser: true }, (err, res)=>{
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, (err, res)=>{
     if(err) throw err;
 
-    console.log('DB started.');
+    console.log('DB started ...');
 });
 
 app.listen(PORT, () => {
-    console.log(`Runnign in the port ${PORT}`);
+    console.log(`Running in the port ${PORT} ...`);
 })
