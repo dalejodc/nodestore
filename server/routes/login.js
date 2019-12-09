@@ -38,7 +38,7 @@ app.post('/login', (req, res) => {
 
         let token = jwt.sign({
             user: userDB
-        }, process.env.TOKEN_SEED ,{expiresIn: process.env.TOKEN_EXPIRES_IN})
+        }, process.env.TOKEN_SEED, { expiresIn: process.env.TOKEN_EXPIRES_IN })
 
         res.json({
             ok: true,
@@ -46,6 +46,42 @@ app.post('/login', (req, res) => {
             token: token
         })
     });
+});
+
+// Method to register
+app.post('/register', (req, res) => {
+
+    User.findOne({ email: req.body.email }, (err, userDB) => {
+
+        if (userDB) {
+            return res.status(402).json({
+                ok: false,
+                err: 'The user already exists, please login'
+            })
+        }
+
+        let user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 10),
+            role: 'customer'
+        })
+
+        user.save((err, userDB) => {
+
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err: err
+                });
+            }
+
+            res.json({
+                ok: true,
+                user: userDB
+            });
+        })
+    })
 });
 
 
