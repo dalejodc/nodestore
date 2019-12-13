@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
+var cors = require('cors');
 
 
 // Parse application/x-www-form-urlencoded
@@ -12,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // Parse application/json
 app.use(bodyParser.json())
+
+// Cors
+app.use(cors());
 
 //Global config of routes
 app.use(require('./routes/routes'));
