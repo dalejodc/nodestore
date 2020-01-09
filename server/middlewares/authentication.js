@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 //Middleware to check the token
-let checkToken = (req, res, next)=>{
-    
+let checkToken = (req, res, next) => {
+
     let token = req.get('token');
 
-    jwt.verify(token, process.env.TOKEN_SEED , (err, decoded)=>{
-        if(err){
+    jwt.verify(token, process.env.TOKEN_SEED, (err, decoded) => {
+        if (err) {
             return res.status(401).json({
-                ok:false,
+                ok: false,
                 err
             })
         }
@@ -20,16 +20,16 @@ let checkToken = (req, res, next)=>{
 }
 
 //Middleware to check the ROLE
-let checkRole = (req, res, next)=>{
-    
+let checkRole = (req, res, next) => {
+
     let user = req.user;
-    
-    if(user.ROLE === 'ADMIN_ROLE'){
+
+    if (user.ROLE === 'admin') {
         next();
-    }else{
+    } else {
         return res.json({
             ok: false,
-            err:{
+            err: {
                 message: 'You are not allowed to do the action. Contact an Admin.'
             }
         })

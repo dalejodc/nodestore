@@ -21,9 +21,7 @@ app.post('/login', (req, res) => {
         if (!userDB) {
             return res.status(400).json({
                 ok: false,
-                err: {
-                    message: 'User incorrect'
-                }
+                message: 'The credentials don\'t match with our records'
             });
         }
 
