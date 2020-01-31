@@ -10,7 +10,7 @@ process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'se-token-ed-dev';
 // DATABASE
 let urlDB;
 
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'local') {
     urlDB = 'mongodb://localhost:27017/store';
 } else {
     urlDB = process.env.MONGO_URI;
