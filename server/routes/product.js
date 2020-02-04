@@ -103,7 +103,7 @@ app.post('/product', checkToken, (req, res) => {
 
         res.status(201).json({
             ok: true,
-            menu: menuDB
+            menu: productDB
         })
     })
 
